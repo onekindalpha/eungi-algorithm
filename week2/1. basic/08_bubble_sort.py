@@ -32,17 +32,22 @@ def bubble_sort(arr):
     Returns:
         정렬된 배열
     """
+    # 시간 복잡도: O(N²)
+    # 공간 복잡도: O(1)
     n = len(arr)
-    
+
     # TODO: 외부 반복문 - n-1번 반복
-    # 각 패스마다 가장 큰 원소가 끝으로 이동
+    # 각 패스마다 가장 큰 원소가 배열의 끝으로 이동한다. 
+    for i in range(n-1):
     ## TODO: 내부 반복문 - 인접한 원소 비교
-    ## 0부터 n-i-1까지 반복 (이미 정렬된 뒷부분 제외)
+        # 이미 정렬된 뒤쪽 원소는 제외하고
+        # 인접한 두 원소를 비교한다. 
+        for j in range(0, n-1-i):
+            # 앞의 원소가 뒤의 원소보다 크면 두 원소를 교환한다. 
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
     ## TODO: 인접한 두 원소 비교 및 교환
-    ## arr[j] > arr[j+1]이면 교환
-    ## 외부 반복문: n-1번 실행
-    pass
-        
+    # 정렬된 배열을 반환한다. 
     return arr
 
 def bubble_sort_optimized(arr):
@@ -55,19 +60,29 @@ def bubble_sort_optimized(arr):
     Returns:
         정렬된 배열
     """
+    # 최악의 경우 시간 복잡도: O(N²)
+    # 이미 정렬된 경우 시간 복잡도: O(N)
+    # 공간 복잡도: O(1)
     n = len(arr)
-    
-    for i in range(n):
-        swapped = False  # 교환 발생 여부
-        
+    # 탐색할 범위가 1개 이하가 될 때까지 반복한다. 
+    while n > 1:
+        # 이번 패스에서 마지막으로 교환된 위치를 저장한다. 
+        # 교환이 한 번도 일어나지 않으면 0을 유지한다. 
+        last_swap = 0 
+
         # TODO: 내부 반복문과 교환 로직 구현
-        # 교환이 발생하면 swapped = True 설정        
-        pass
-        
-
-        # TODO: 교환이 없으면 이미 정렬된 것이므로 break
-        pass
-
+        # 현재 정렬 범위에서 인접한 원소를 비교한다. 
+        for j in range(0, n-1):
+            # 앞의 원소가 뒤의 원소보다 크면 두 원소를 교환한다. 
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+                # 현재 위치에서 교환이 일어났음을 기록한다. 
+                last_swap = j+1
+        # TODO: 
+        # 마지막으로 교환된 위치까지만 다음 패스에서 확인한다. 
+        # 그 뒤쪽은 이미 정렬된 상태이므로 다시 비교할 필요가 없다. 
+        n = last_swap
+    # 정렬된 배열을 반환한다. 
     return arr
 
 # 테스트 케이스

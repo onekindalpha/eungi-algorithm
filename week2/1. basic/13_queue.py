@@ -23,9 +23,7 @@
 - append(): 뒤에 추가 (enqueue)
 - pop(0): 앞에서 제거 (dequeue)
 """
-
 from collections import deque
-
 def process_print_queue(jobs):
     """
     프린터 작업을 순서대로 처리
@@ -36,16 +34,25 @@ def process_print_queue(jobs):
     Returns:
         처리된 작업 리스트
     """
-    # TODO: deque로 큐 생성
+    # 시간 복잡도 : O(N), 공간복잡도 O(N) 
+    # TODO: deque로 작업 대기열을 생성한다.  
     queue = deque(jobs)
-    
+    # popleft()는 앞에서 제거한다.
+    # 따라서 FIFO(First In First Out) 방식으로 처리할 수 있다.
+    # 처리한 작업을 순서대로 저장할 빈 리스트 
     processed = []
     
-    # TODO: 큐가 비어있지 않은 동안 반복
-    ## 큐에서 작업 꺼내기
-    ## 작업 처리 (출력 및 리스트에 추가)
-    pass
-    
+    # TODO: 큐가 빌 때까지 작업을 하나씩 처리한다. 
+    while queue:
+        # 큐의 맨 앞 작업을 꺼낸다. 
+        # deque에서 popleft()는 O(1)이다.  
+        job = queue.popleft()    
+
+        # 현재 처리 중인 작업을 출력한다. 
+        print(f"처리: {job}")
+        # 처리한 작업을 결과 리스트에 추가한다. 
+        processed.append(job)
+    # 처리된 작업 순서를 반환한다.
     return processed
 
 # 테스트 케이스

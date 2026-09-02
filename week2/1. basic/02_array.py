@@ -16,7 +16,7 @@
 [
     [1, 2, 3],
     [4, 5, 6],
-    [7, 8, 9]
+    [7, 8, 9] 
 ]
 
 출력:
@@ -42,15 +42,36 @@ def rotate_matrix_90(matrix):
         회전된 2차원 리스트
     """
     n = len(matrix)
-    
     # TODO: n x n 크기의 새로운 배열을 생성하세요 (0으로 초기화)
-    pass
-        
     # TODO: 원본 배열의 각 요소를 회전된 위치에 배치하세요
     # 힌트: (i, j) 위치의 요소는 회전 후 (j, n-1-i) 위치로 이동
-    pass
-    
-    return rotated
+    # 1단계: 전치
+    for i in range(n):
+        for j in range(i+1, n):
+            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+    # 2단계: 각 행을 뒤집는다.
+    for row in matrix:
+        row.reverse()
+    return matrix
+
+# 180도 시계방향
+def rotate_180(matrix):
+    # 각 행을 뒤집는다. 
+    for row in matrix:
+        row.reverse()
+    # 행의 순서를 뒤집는다. 
+    matrix.reverse()
+    return matrix
+# 270도 시계방향
+def rotate_270(matrix):
+    n = len(matrix)
+    # 전치: 행과 열을 바꾼다. 
+    for i in range(n):
+        for j in range(i +1, n):
+            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+    # 행과 열의 순서를 뒤집는다. 
+    matrix.reverse()
+    return matrix
 
 def print_matrix(matrix):
     """배열을 보기 좋게 출력하는 헬퍼 함수"""

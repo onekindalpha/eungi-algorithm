@@ -106,8 +106,6 @@ combinations(n, k) -> list[list[int]]
 
 ==============================================================================
 """
-
-
 def combinations(n: int, k: int) -> list:
     """
     1 부터 n 까지 숫자 중 k 개를 선택하는 모든 조합을 반환합니다.
@@ -119,7 +117,8 @@ def combinations(n: int, k: int) -> list:
     Returns:
         모든 조합을 담은 리스트(예: [[1,2], [1,3], ...])
     """
-    result = []  # 완성된 조합을 모아 둘 곳
+    # 완성된 조합을 저장할 리스트
+    result = []
 
     def backtrack(start: int, current_combination: list) -> None:
         """
@@ -140,21 +139,27 @@ def combinations(n: int, k: int) -> list:
         #   때문에 그대로 넣으면 모든 조합이 같은 객체를 가리키게 됩니다.
         # - 복사본 만드는 방법: list(current_combination)  또는 current_combination[:]
         #
+        # [Level 1] Base Case
+        # k개를 모두 선택하면 하나의 조합이 완성된다. 
         # TODO(Level 1): 아래 두 줄을 직접 작성하세요.
-        # if len(current_combination) == ...:
-        #     result.append(...)
-        #     return
-        pass  
+        if len(current_combination) == k:
+            # current_combination은 이후 append와 pop으로 변경되므로
+            # 현재 조합의 복사본을 result에 저장한다. 
+            result.append(current_combination[:])
+            return 
 
         # ──────────────────────────────────────────────────────────────────
         # [Level 2] 가지치기 반복문
         # ──────────────────────────────────────────────────────────────────
-        # 힌트:
-        # - 이번에는 start 부터 n 까지 숫자를 하나씩 시도해 봅니다.
-        # - 반복문 변수 이름은 num 으로 추천 (의미: "이번에 고를 숫자").
-        #
+        # 앞으로 몇 개를 더 선택해야 하는지 계산한다. 
+        left = k - len(current_combination)
+        # 남은 숫자를 모두 선택할 수 있도록
+        # 이번에 선택할 수 있는 마지막 숫자를 계산한다. 
+        end = n - left + 1
+
+        # [Level 2] start부터 end까지 선택할 숫자를 하나씩 시도한다. 
         # TODO(Level 2): 아래 한 줄을 작성하세요.
-        pass
+        for num in range(start, end+1):
 
             # ──────────────────────────────────────────────────────────────
             # [Level 3] 백트래킹 3단계
@@ -164,24 +169,30 @@ def combinations(n: int, k: int) -> list:
             #   2) 탐색(Explore) : backtrack(num + 1, current_combination)
             #   3) 취소(Unchoose): current_combination 의 마지막 요소를 제거
             #
+            # [Choose]
+            # 현재 숫자를 조합에 추가한다. 
             # TODO(Level 3): 아래 세 줄을 작성하세요.
-            # current_combination.append(...)
-            # backtrack(..., current_combination)
-            # current_combination.pop()
+            current_combination.append(num)
+            # [Explore]
+            # 다음 선ㅇ택에서는 현재 숫자보다 큰 숫자만 사용한다. 
+            # start를 num+1로 넘겨 [1,2]와 [2,1]같은 중복을 방지한다. 
+            backtrack(num+1, current_combination)
+            # [Unchoose]
+            # 다음 숫자를 시도하기 위해 방금 선택한 숫자를 제거한다. 
+            current_combination.pop()
 
-    # 처음 호출: 시작 숫자는 1, 지금까지 고른 숫자는 비어 있음
+    # 처음에는 1부터 선택할 수 있고, 아직 선택한 숫자는 없다. 
     backtrack(1, [])
+    # 완성된 모든 조합을 반환한다. 
     return result
 
-
-# ============================================================================
+#============================================================================
 # (이 함수는 직접 채울 필요 없음 — itertools 로 만든 비교/검증용 정답)
 # ============================================================================
 def combinations_itertools_compare(n: int, k: int) -> list:
     """파이썬 표준 라이브러리로 만든 동일 결과 (정답 비교용)"""
     from itertools import combinations as comb
     return [list(c) for c in comb(range(1, n + 1), k)]
-
 
 # ============================================================================
 # 테스트 케이스

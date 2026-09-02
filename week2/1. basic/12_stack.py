@@ -35,17 +35,26 @@ def is_valid_parentheses(s):
     Returns:
         올바른 괄호면 True, 아니면 False
     """
+    # 시간 복잡도: O(N) - 문자열의 각 문자를 한 번씩 확인한다.
+    # 공간 복잡도: O(N) - 여는 괄호를 stack에 저장할 수 있다.
     stack = []
+    # TODO: 문자열의 각 문자를 순서대로 확인한다. 
+    # : 여는 괄호 '('면 스택에 추가한다. 
+    for char in s:
+        if char == "(":
+            stack.append(char)
+
+    # : 닫는 괄호 ')'를 만나면 짝이 되는 "("가 있는지 확인한다. 
+        else:
+        # stack이 비어 있다면 짝이 될 "("가 없으므로 잘못된 괄호이다. 
+            if not stack:
+                return False
+            # 짝이 되는 "("를 stack를 제거한다. 
+            stack.pop()
     
-    # TODO: 문자열의 각 문자를 순회
-    ## : 여는 괄호 '('면 스택에 추가
-    ## : 닫는 괄호 ')'면
-    ## 스택이 비어있으면 False 반환
-    ## 아니면 스택에서 pop
-    pass
-    
-    # TODO: 반복이 끝나면 스택이 비어있는지 확인
-    pass
+    # TODO: 반복이 끝나면 스택이 비어있는지 확인 
+    # 모든 문자를 확인한 뒤 stack이 비어 있으면 모든 괄호의 짝이 맞는다. 
+    return not stack
 
 # 테스트 케이스
 if __name__ == "__main__":

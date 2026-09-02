@@ -32,30 +32,41 @@ def find_duplicates_brute_force(nums):
     n = len(nums)
     
     # TODO: 이중 반복문으로 중복 찾기
-    ## i번째 원소와 i+1 이후의 모든 원소를 비교
-    ## 같은 원소를 찾으면 duplicates에 추가 (중복 추가 방지 필요)
-    pass
-    
+    # 각 원소를 기준으로 뒤쪽의 모든 원소와 비교한다. 
+    for i in range(n):
+        # i보다 뒤에 있는 원소만 비교하여 같은 원소를 찾는다. 
+        for j in range(i+1, n):
+            # 두 원소가 같고, 아직 duplicates에 추가되지 않았다면 저장한다. 
+            if nums[i] == nums[j] and nums[i] not in duplicates:
+                duplicates.append(nums[i])
+    # 중복된 원소들을 반환한다. 
     return duplicates
 
 def find_duplicates_sorting(nums):
     """
     방법2: 정렬 후 인접 원소 비교
     시간 복잡도: O(n log n) - 정렬
-    공간 복잡도: O(1) - 정렬을 in-place로 수행
+    공간 복잡도: O(1) - 정렬을 in-place로 수행 
     """
+    # 빈 배열이면 비교할 원소가 없으므로 빈 리스트를 반환한다. 
     if not nums:
         return []
-    
     # TODO: 배열을 정렬하세요 (nums.sort() 사용)
-    pass
-    
+    # 배열을 오름차순으로 정렬한다. 
+    # 같은 값이 서로 붙게 되므로 인접한 원소만 비교하면 된다. 
+    nums.sort()
     duplicates = []
-    
+    n = len(nums)
+
     # TODO: 인접한 원소를 비교하여 중복 찾기
-    # i와 i+1 원소가 같고, duplicates에 없으면 추가
-    pass
-    
+    # 인접한 두 원소를 비교한다. 
+    for i in range(n - 1):
+        # 같은 값이 연속해서 나타나면 중복 원소이다. 
+        if nums[i] == nums[i + 1]:
+            # 같은 중복 원소가 결과에 여러 번 들어가는 것을 방지한다. 
+            if not duplicates or duplicates[-1] != nums[i]:
+                duplicates.append(nums[i])
+    # 중복된 원소들을 반환한다. 
     return duplicates
 
 def find_duplicates_hash(nums):
@@ -64,19 +75,29 @@ def find_duplicates_hash(nums):
     시간 복잡도: O(n)
     공간 복잡도: O(n)
     """
+    # 이미 확인한 원소들을 저장하는 집합. 
     seen = set()
+    # 중복된 원소들을 저장하는 집합. 
     duplicates = set()
     
-    # TODO: 각 원소를 순회하면서
-    ## 이미 seen에 있으면 duplicates에 추가
-    ## 없으면 seen에 추가
-    pass
-    
+    # TODO:
+    # 각 배열의 원소들을 하나씩 확인한다. 
+    for num in nums:
+        # 이미 seen에 있다면 중복된 원소이므로 duplicates에 추가한다. 
+        if num in seen:
+            duplicates.add(num)
+        # 처음 등장한 원소라면 seen에 추가한다. 
+        else:
+            seen.add(num)
+    # 집합은 순서를 보장하지 않으므로 리스트로 변환한다. 
     return list(duplicates)
 
+# 실행시간 코드 참고
 def measure_time(func, nums, method_name):
     """실행 시간 측정 헬퍼 함수"""
-    result = func(nums[:])  # 복사본 전달
+    # 원본 배열이 변경되지 않도록 복사본을 전달한다. 
+    result = func(nums[:]) 
+    # 결과를 정렬해서 새 방법의 출력 순서를 맞춘다.  
     print(f"{method_name}: {sorted(result)}")
     print()
 
@@ -119,5 +140,3 @@ if __name__ == "__main__":
     print("방법3 - Hash:")
     print("  시간: O(n), 공간: O(n)")
     print("  특징: 가장 빠르지만 메모리 사용")
-
-

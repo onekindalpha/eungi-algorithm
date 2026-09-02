@@ -23,7 +23,7 @@
 - 왼쪽과 오른쪽의 최댓값 중 큰 값 반환
 """
 
-def find_max_divide_conquer(arr, left, right):
+def find_max_divide_conquer(arr,left, right):
     """
     분할 정복으로 최댓값 찾기
     
@@ -35,25 +35,35 @@ def find_max_divide_conquer(arr, left, right):
     Returns:
         최댓값
     """
-    # TODO: base case - 원소가 하나면 그 값 반환
-    pass
-    
+    # 시간 복잡도: O(N)
+    # 공간 복잡도: O(log N) - 재귀 호출 깊이만큼 스택 공간 사용
+    # Base Case:
+    # TODO: base case 
+    # 현재 범위에 원소가 하나만 남으면 그 값이 최댓값이다.
+    if left == right:
+        return arr[left]
+    # Divde: 
+    # 현재 범위의 가운데 인덱스를 기준으로 배열을 두 부분으로 나눈다. 
     # TODO: 중간 지점 계산
-    pass
-    
-    # TODO: 왼쪽 절반의 최댓값
-    pass
-        
-    # TODO: 오른쪽 절반의 최댓값
-    pass
-    
-    # TODO: 둘 중 큰 값 반환
-    pass
+    mid = (left + right) // 2
+    # Conquer:
+    # TODO: [Conquer] 왼쪽 절반의 최댓값
+    # 왼쪽 부분 배열의 최댓값을 재귀적으로 구한다. 
+    left_max = find_max_divide_conquer(arr, left, mid)
+    # Conquer:
+    # TODO: [Conquer] 오른쪽 절반의 최댓값
+    # 오른쪽 부분 배열의 최댓값을 재귀적으로 구한다.     
+    right_max = find_max_divide_conquer(arr, mid + 1, right)
+    # Combine:
+    # 왼쪽과 오른족에서 구한 최댓값 중 더 큰 값을 반환한다. 
+    # TODO: [Combine] 둘 중 큰 값 반환
+    return max(left_max, right_max)
 
 # 테스트 케이스
 if __name__ == "__main__":
     # 테스트 케이스 1
     arr1 = [3, 5, 1, 8, 2, 9, 4]
+    target = 9
     result1 = find_max_divide_conquer(arr1, 0, len(arr1) - 1)
     print(f"배열: {arr1}")
     print(f"최댓값: {result1}")
@@ -61,6 +71,7 @@ if __name__ == "__main__":
     
     # 테스트 케이스 2
     arr2 = [10, 20, 30, 40, 50]
+    target = 10
     result2 = find_max_divide_conquer(arr2, 0, len(arr2) - 1)
     print(f"배열: {arr2}")
     print(f"최댓값: {result2}")
@@ -68,6 +79,7 @@ if __name__ == "__main__":
     
     # 테스트 케이스 3
     arr3 = [100]
+    target = 100
     result3 = find_max_divide_conquer(arr3, 0, len(arr3) - 1)
     print(f"배열: {arr3}")
     print(f"최댓값: {result3}")

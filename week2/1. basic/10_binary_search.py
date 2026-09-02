@@ -33,18 +33,39 @@ def binary_search(arr, target):
     Returns:
         target의 인덱스 (없으면 -1)
     """
+    # 시간 복잡도: O(log N) - 탐색 범위를 매번 절반으로 줄인다.
+    # 공간 복잡도: O(1) - 추가 배열 없이 변수만 사용한다.
+    
+    # 탐색 범위의 시작 인덱스
     left = 0
+    # 탐색 범위의 끝 인덱스
+    # 마지막 인덱스는 배열의 길이 -1 이다. 
     right = len(arr) - 1
-    
-    # TODO: left가 right보다 작거나 같을 때까지 반복
-    ## 중간 인덱스 계산
-    ## arr[mid]와 target 비교
-    ## 같으면 mid 반환
-    ## target이 더 크면 left = mid + 1
-    ## target이 더 작으면 right = mid - 1
-    pass
-    
-    return -1
+    # target을 찾았을 때 인덱스를 저장할 변수
+    # 아직 찾지 못햇으면 -1을 유지한다. 
+    top = -1
+
+    # TODO: 
+    # 탐색할 범위가 존재하는 동안 반복한다. 
+    # left > right가 되면 탐색할 범위가 사라진 것이다.  
+    while left <= right:
+        # 현재 탐색 범위의 가운데 인덱스를 구한다.   
+        mid = (left + right) // 2
+        # 가운데 값이 target과 같으면 위치를 저장한다. 
+        if arr[mid] == target:
+            top = mid
+            # target을 찾았더라도 더 뒤에 같은 값이 있을 수 있으므로
+            # 오른쪽 범위에서 계속 탐색한다. 
+            left = mid + 1
+        # target이 가운데 값보다 크면 오른쪽 절반을 탐색한다. 
+        elif target > arr[mid]:
+            left = mid + 1     
+        # target이 가운데 값보다 작으면 왼쪽 절반을 탐색한다. 
+        else:
+            right = mid - 1
+    # target을 찾았다면 저장한 인덱스를 반환하고,
+    # 찾지 못했다면 처음부터 유지된 -1을 반환한다.  
+    return top
 
 # 테스트 케이스
 if __name__ == "__main__":
