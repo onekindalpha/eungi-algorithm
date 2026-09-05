@@ -42,12 +42,19 @@ def make_change_greedy(change, coins):
     """
     result = {}
     total_coins = 0
-    
+    used = 0
     # TODO: 각 동전에 대해 반복
-    ## 현재 동전으로 거슬러줄 수 있는 개수 계산    
-    ## 개수가 0보다 크면 결과에 추가
-    pass
-    
+    ## 현재 동전으로 거슬러줄 수 있는 개수 계산 
+    # [500, 100, 50, 10]  
+    for coin in coins:
+        # 몫
+        used = (change // coin)
+        # 나머지
+        change %= coin
+        # 개수가 0보다 크면 결과에 추가 <- 근데 이 조건이 왜 잇는거지? 
+        if used > 0:
+            result[coin] = used
+    total_coins = sum(result.values())
     return total_coins, result
 
 # 테스트 케이스

@@ -41,13 +41,16 @@ def create_graph(vertices, edges, directed=False):
         그래프 딕셔너리
     """
     # TODO: 빈 그래프 초기화
-    pass
-    
     # TODO: 간선 추가
-    ## 간선 추가 (u에서 v로)
-    ## 무방향 그래프면 반대 방향도 추가
-    pass
-    
+    graph= {vertex: [] for vertex in range(vertices)}
+    for u, v in edges:
+        # 방향그래프인 경우에는 아래 줄만 실행됨. 
+        graph[u].append(v)
+        # 무방향 그래프 (=양방향 그래프)
+        if not directed:
+            # 무방향 그래프는 아래줄도 추가로 실행됨. 
+            graph[v].append(u)
+    # 그래프를 반환
     return graph
 
 # 테스트 케이스
