@@ -38,6 +38,7 @@ def partition(arr, low, high):
     pivot = arr[high]
     
     # TODO: i는 작은 원소들의 마지막 인덱스를 추적
+    # 지금까지 찾은 작은 값들을 모아놓은 영역의 끝 위치
     i = low -1
     
     # TODO: low부터 high-1까지 순회하면서
@@ -45,12 +46,17 @@ def partition(arr, low, high):
     ##   1. i를 1 증가
     ##   2. arr[i]와 arr[j]를 교환
     for j in range(low, high):
+        # for j 안에서는 작은 값들을 앞으로 모음. j는 low부터 high-1까지 이동하면서 피벗보다 작거나 같은 값을 찾는다.
         if arr[j] <= pivot:
+            # 그리고 pivot보다 작은 값을 찾게 되면
+            # i를 1 증가시켜 작은 값이 들어갈 다음 위치를 만든다.
             i+=1
+            # arr[i]와 arr[j]를 교환해서, 찾은 작은 값을 작은 값 영역에 넣는다.
             arr[i], arr[j] = arr[j], arr[i]
             # TODO: 피벗을 올바른 위치(i+1)에 배치
+    # j의 탐색이 끝나면 i는 작은 값 영역의 마지막 위치를 가리킨다. 따라서 i+1이 피벗이 들어갈 위치가 된다.
     arr[i+1], arr[high]= arr[high], arr[i+1]
-    
+    # 피벗의 최종 인덱스를 반환한다.
     return i + 1
 
 def quick_sort_helper(arr, low, high):
@@ -63,6 +69,7 @@ def quick_sort_helper(arr, low, high):
         high: 끝 인덱스
     """
     # TODO: base case - low가 high보다 작을 때만 정렬
+    # low == high이면 원소가 1개이고, low > high이면 정렬할 구간이 없으므로 종료한다.
     if low < high:
         ## 분할하여 피벗 인덱스 얻기
         p = partition(arr, low, high)
