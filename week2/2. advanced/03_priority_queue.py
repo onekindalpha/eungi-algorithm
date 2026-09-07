@@ -25,6 +25,7 @@
 """
 
 import heapq
+from heapq import heapify
 
 def process_emergency_room(patients):
     """
@@ -41,14 +42,27 @@ def process_emergency_room(patients):
     
     
     # TODO: 모든 환자를 힙에 추가
-    pass
-        
+    # heapq는 튜플의 첫번째 원소를 우선적으로 비교하므로, 
+    # 만약에 이름을 기준으로 우선순위를 정하게 되면
+    # heapq.heapify(patients) 이렇게 넣으면 되는데
+    # 만약에 우선순위가 두번째 값이라면
+    # 우선순위로 힙을 만들고 싶은 것이므로, 순서를 바꿔서 넣는게 편함. 
+    # (우선순위, 이름) 형태로 힙에 넣으면 됨
+    for name, priority in patients:
+        heapq.heappush(heap, (priority, name))
+
     processed = []
     
     # TODO: 힙이 비어있지 않은 동안 반복
-    ## 힙에서 우선순위가 가장 높은 환자 꺼내기
-    ## 환자 처리
-    pass
+    while heap:
+        ## 힙에서 우선순위가 가장 높은 환자 꺼내기
+        priority, name = heapq.heappop(heap)
+        ## 환자 처리된순서를 반환해야 하므로
+        # 처리: 이영희 (우선순위: 1)
+        # 처리: 박민수 (우선순위: 2)
+        # 처리: 김철수 (우선순위: 3)
+        print(f"처리: {name} (우선순위: {priority})")
+        processed.append(name)
         
     return processed
 

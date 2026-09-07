@@ -80,14 +80,14 @@ def hanoi_moves(n: int) -> list:
     def move(k, src, via, dst):
         if k == 0:
             return
-        #1. 위쪽 k-1개를 src src -> via
+        #1. 위쪽 k-1개를 src -> via
         move(k -1, src, dst, via)
         #2. 가장 큰 원반을 src -> dst
         moves.append((src, dst))
         #3. k-1개를 via -> dst
         move(k-1, via, src, dst)
     # 아래는 기둥 번호임
-    mo ve(n, 1, 2, 3)
+    move(n, 1, 2, 3)
     return moves
 
 if __name__ == "__main__":

@@ -87,7 +87,7 @@ def merge_sort_helper(arr, left, right):
         merge_sort_helper(arr, left, mid)    
         ## 오른쪽 절반 재귀 정렬
         merge_sort_helper(arr, mid+1, right)
-        ## 정렬된 두 절반을 병합
+        ## 정렬된 두 절반을 병합 - merge를 하면 실제 정렬/합치기
         merge(arr, left, mid, right)
 
 def merge_sort(arr):
