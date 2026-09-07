@@ -62,13 +62,44 @@ def n_queens(n: int) -> int:
     """
     # TODO: 백트래킹으로 가능한 배치의 수를 반환하세요.
     # 권장 구조:
-    #   cols = [0] * n
-    #   count = 0
-    #   def place(row):
-    #       ...
-    #   place(0)
-    #   return count
-    pass
+    cols = [0] * n
+    # 가능한 배치의 수
+    count = 0
+    # 유효한지 여부
+    valid = True
+    # 언제 종료할 것인지
+    # 유망함수
+    def promising(row, c):
+      for i in range(row):
+        # 지금까지의 행 인덱스에 대한 열 인덱스가 현재 c인덱스와 같게 되면
+        if cols[i] == c:
+          valid = False
+          return False
+        # 만약 대각선에 이전에 놓인 퀸들이 있다면
+        # 이전에 놓인 행 인덱스에 대한 열 인덱스와 현재 c인덱스의 차이가
+        # 현재 행과 이전 행에 대한 차이가 같게 되면
+        if abs(cols[i] - c) == row - i:
+          valid = False
+          return False
+      return True
+    # 열별로 c열을 놓는것이 가능한지 보겠다. 
+    # place 함수
+    def place(row):
+      nonlocal count
+      for c in range(n):
+          # 만약 현재 행에 c열을 배치하는 것이 유망하면
+          if promising(row, c):
+              # cols[row인덱스]는 c열 인덱스를 기입한다. 
+              cols[row] = c
+              # 그리고 다른 행에 대해서도 c열 인덱스를 찾아서 기입한다. 
+              place(row + 1)
+      # 만약 모든 행에 퀸을 배치했으면 완성된 배치 하나를 찾았으니 count를 1 증가시키고 돌아감. 
+      if row == n:
+        count+=1
+        return
+    # 초기호출을 한다. 
+    place(0)
+    return count
 
 
 if __name__ == "__main__":
