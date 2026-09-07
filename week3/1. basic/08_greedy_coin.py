@@ -41,19 +41,22 @@ def make_change_greedy(change, coins):
         (총 개수, {동전: 개수} 딕셔너리)
     """
     result = {}
+    # 전체 사용한 동전의 수. 
     total_coins = 0
+    # 동전별 사용한 동전의 개수
     used = 0
     # TODO: 각 동전에 대해 반복
     ## 현재 동전으로 거슬러줄 수 있는 개수 계산 
     # [500, 100, 50, 10]  
     for coin in coins:
-        # 몫
+        # 몫 (정수몫) - 개수니까. 
         used = (change // coin)
-        # 나머지
+        # 나머지를 현재 동전으로 나눠서 또 나머지를 구함. 
         change %= coin
-        # 개수가 0보다 크면 결과에 추가 <- 근데 이 조건이 왜 잇는거지? 
+        # 아래는 100원은 0과 같은 의미없는 결과 반환하지 않도록 하기 위함.  
         if used > 0:
             result[coin] = used
+    # 딕셔너리의 밸류들을 더한다. 
     total_coins = sum(result.values())
     return total_coins, result
 

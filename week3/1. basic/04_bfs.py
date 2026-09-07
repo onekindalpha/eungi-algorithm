@@ -56,6 +56,7 @@ def bfs(graph, start):
         for next_node in graph[c_node]:
             ## 방문하지 않은 정점이면 큐에 추가
             if next_node not in visited:
+                # BFS 에서는 queue에 넣을 때 방문처리를 보통 한다고 함.  
                 visited.append(next_node)
                 queue.append(next_node)
     return visited

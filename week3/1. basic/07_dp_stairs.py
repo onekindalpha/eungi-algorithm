@@ -46,7 +46,7 @@ def climb_stairs(n):
         n번째 계단까지 오르는 방법의 수
     """
 
-    # TODO: 특별한 경우 처리
+    # TODO: 특별한 경우 처리 - for 반복문에서는 3부터만 구하고 있으니까. 
     if n == 1:
         return 1
     if n == 0:
@@ -54,7 +54,6 @@ def climb_stairs(n):
     
     # TODO: dp 배열 생성 및 초기화
     dp = [0] * (n+1)
-    dp[0] = 0
     
     # TODO: 작은 문제부터 차례로 계산
     dp[1] = 1
