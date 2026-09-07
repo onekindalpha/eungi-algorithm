@@ -76,11 +76,37 @@ def dijkstra(n: int, edges: list, start: int) -> list:
     반환: 길이 n 의 거리 리스트 (도달 불가 = float('inf'))
     """
     # TODO: 인접 리스트 graph 구성 (graph[u] = [(v, w), ...])
-    # TODO: dist 를 INF 로 초기화하고 dist[start] = 0
-    # TODO: 우선순위 큐(heapq)로 BFS-like 최단경로 탐색
-    # TODO: dist 반환
-    pass
+    graph = {}
+    visited = n * [False]
+    for node in range(n):
+        graph[node] = []
+    for u, v, w in edges:
+        graph[u].append((v, w))
 
+    # TODO: dist 를 INF 로 초기화하고 dist[start] = 0
+    INF = float('inf')
+    dist = [INF] * n
+    dist[start]=0
+    # TODO: 우선순위 큐(heapq)로 BFS-like 최단경로 탐색
+    heap=[]
+    # distance랑 u를 넣은 듯. 
+    heapq.heappush(heap, (0, start))
+    visited[start] = True
+    while heap:
+        c_dist, u = heapq.heappop(heap)
+        if c_dist > dist[u]:
+            continue
+        # 인접노드에 대해 탐색하면서, 
+        for v, w in graph[u]:
+            # 만약 현재까지 거리에 가중치를 더한게 v까지의 dist최소 비용보다 작으면
+            if dist[u] + w < dist[v]:
+                # 새롭게 dist[v]를 갱신한다. 
+                dist[v] = dist[u] + w
+                # 방금 거리를 새로 계산한 그 다음 노드를 큐에 넣는다. 
+                heapq.heappush(heap, (dist[v], v))
+                visited[v] = True
+    # TODO: dist 반환
+    return dist
 
 def _format(dist):
     """출력 표기를 위한 헬퍼: float('inf') 는 'INF' 로 보여줌"""
